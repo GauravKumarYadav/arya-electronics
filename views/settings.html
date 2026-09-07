@@ -1,0 +1,101 @@
+<style>
+  .settings-container {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    font-family: 'Poppins', sans-serif;
+  }
+  .settings-header {
+    border-bottom: 2px solid #f1f3f5;
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+  }
+  .settings-header h1 {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    font-weight: 600;
+  }
+  .settings-section {
+    margin-bottom: 30px;
+    border-bottom: 1px solid #f1f3f5;
+    padding-bottom: 25px;
+  }
+  .settings-section h2 {
+    font-size: 1.25rem;
+    color: #34495e;
+    margin-bottom: 12px;
+  }
+  .form-group {
+    margin-bottom: 18px;
+    max-width: 600px;
+  }
+  .form-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 6px;
+  }
+  .form-group input, .form-group select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 0.95rem;
+  }
+  .save-btn {
+    background: #1abc9c;
+    color: white;
+    padding: 12px 28px;
+    border-radius: 6px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .save-btn:hover {
+    background: #16a085;
+  }
+</style>
+
+<div class="settings-container">
+  <div class="settings-header">
+    <h1><i class="fas fa-cog" style="color:#1abc9c; margin-right:10px;"></i> System Settings & Configuration</h1>
+    <p style="color:#7f8c8d; margin-top:5px;">Configure ERP environment, currency, regional tax defaults, and Neon database integration.</p>
+  </div>
+
+  <div class="settings-section">
+    <h2><i class="fas fa-database" style="color:#3498db; margin-right:8px;"></i> Database Integration</h2>
+    <div class="form-group">
+      <label>Neon Database Connection String (DATABASE_URL)</label>
+      <input type="password" id="dbUrlInput" placeholder="postgresql://neondb_owner:***@ep-***.us-east-2.aws.neon.tech/neondb?sslmode=require" value="">
+      <small style="color:#7f8c8d; display:block; margin-top:4px;">When left empty, the system automatically uses the high-performance local JSON mock store.</small>
+    </div>
+  </div>
+
+  <div class="settings-section">
+    <h2><i class="fas fa-building" style="color:#3498db; margin-right:8px;"></i> Organization Profile</h2>
+    <div class="form-group">
+      <label>Company Name</label>
+      <input type="text" value="AIC Industrial Corp">
+    </div>
+    <div class="form-group">
+      <label>Default Currency</label>
+      <select>
+        <option selected>USD ($) - US Dollar</option>
+        <option>EUR (€) - Euro</option>
+        <option>GBP (£) - British Pound</option>
+        <option>INR (₹) - Indian Rupee</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Default Sales Tax Rate (%)</label>
+      <input type="number" value="7.5" step="0.1">
+    </div>
+  </div>
+
+  <button class="save-btn" onclick="alert('Settings preferences updated successfully.');">
+    <i class="fas fa-check"></i> Save Preferences
+  </button>
+</div>

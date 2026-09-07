@@ -1,0 +1,104 @@
+<style>
+  .reports-container {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    font-family: 'Poppins', sans-serif;
+  }
+  .reports-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #f1f3f5;
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+  }
+  .reports-header h1 {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    font-weight: 600;
+  }
+  .report-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+  .report-card {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 10px;
+    padding: 24px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  .report-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    border-color: #1abc9c;
+  }
+  .report-card i {
+    font-size: 2rem;
+    color: #1abc9c;
+    margin-bottom: 15px;
+    display: inline-block;
+  }
+  .report-card h3 {
+    font-size: 1.2rem;
+    color: #2c3e50;
+    margin-bottom: 8px;
+  }
+  .report-card p {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    line-height: 1.5;
+  }
+</style>
+
+<div class="reports-container">
+  <div class="reports-header">
+    <div>
+      <h1><i class="fas fa-chart-pie" style="color:#1abc9c; margin-right:10px;"></i> Business Reports & Analytics</h1>
+      <p style="color:#7f8c8d; margin-top:5px;">Comprehensive operational summaries, audit logs, and financial projections.</p>
+    </div>
+    <div>
+      <a href="?page=dashboard" style="background:#1abc9c; color:white; padding:10px 20px; border-radius:6px; text-decoration:none; font-weight:500;">
+        <i class="fas fa-arrow-left"></i> Back to Dashboard
+      </a>
+    </div>
+  </div>
+
+  <div class="report-grid">
+    <div class="report-card" onclick="window.location.href='?page=dashboard'">
+      <i class="fas fa-chart-line"></i>
+      <h3>Executive Sales Summary</h3>
+      <p>Analyze revenue growth, top purchasing clients, regional breakdown, and sales targets.</p>
+    </div>
+    <div class="report-card" onclick="window.location.href='?page=inventory'">
+      <i class="fas fa-boxes"></i>
+      <h3>Stock Valuation & Turnover</h3>
+      <p>Assess inventory holding costs, reorder alerts, low-stock notifications, and category volume.</p>
+    </div>
+    <div class="report-card" onclick="window.location.href='?page=purchases'">
+      <i class="fas fa-file-invoice-dollar"></i>
+      <h3>Procurement & Spend Audit</h3>
+      <p>Review supplier commitments, purchase order statuses, shipping schedules, and pending balances.</p>
+    </div>
+    <div class="report-card" onclick="window.location.href='?page=receipts'">
+      <i class="fas fa-receipt"></i>
+      <h3>Accounts Receivable Ledger</h3>
+      <p>Track customer cash inflows, outstanding balances, payment turnaround, and aging receivables.</p>
+    </div>
+    <div class="report-card" onclick="window.location.href='?page=payments'">
+      <i class="fas fa-credit-card"></i>
+      <h3>Accounts Payable Schedule</h3>
+      <p>Monitor vendor disbursements, scheduled payment tranches, and trade credit management.</p>
+    </div>
+    <div class="report-card" onclick="window.location.href='?page=customers'">
+      <i class="fas fa-users"></i>
+      <h3>Customer Lifetime Analysis</h3>
+      <p>Detailed breakdown of customer purchase frequency, regional clusters, and account balances.</p>
+    </div>
+  </div>
+</div>

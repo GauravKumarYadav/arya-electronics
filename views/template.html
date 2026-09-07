@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AIC Inventory App</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Poppins:wght@400;500;600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- ApexCharts -->
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  
+  <style>
+    :root {
+      --sidebar-bg: #2c3e50;
+      --topbar-bg: #ffffff;
+      --primary: #1abc9c;
+      --primary-light: #d1f2eb;
+      --secondary: #3498db;
+      --text-dark: #34495e;
+      --text-light: #ecf0f1;
+      --border-color: #e0e0e0;
+      --card-bg: #ffffff;
+      --hover-bg: #16a085;
+      --active-nav-color: #008080; /* New color for active navigation */
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f5f7fa;
+      color: var(--text-dark);
+      display: flex;
+      min-height: 100vh;
+    }
+    
+    /* Sidebar Styles */
+    .sidebar {
+      width: 260px;
+      background: var(--sidebar-bg);
+      color: var(--text-light);
+      transition: all 0.3s ease;
+      height: 100vh;
+      position: fixed;
+      overflow-y: auto;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+    
+    .app-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 1.4rem;
+      padding: 24px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      color: white;
+      display: flex;
+      align-items: center;
+    }
+    
+    .app-title i {
+      margin-right: 12px;
+      color: var(--primary);
+    }
+    
+    .nav {
+      padding: 15px 0;
+    }
+    
+    .nav-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 20px;
+      color: var(--text-light);
+      text-decoration: none;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      transition: all 0.3s;
+      border-left: 4px solid transparent;
+    }
+    
+    .nav-item:hover {
+      background: #008080;
+      border-left: 4px solid var(--primary);
+      color: white;
+    }
+
+    /* Active navigation item styling */
+    .nav-item.active {
+      background: #008080;
+      border-left: 4px solid var(--active-nav-color); /* Highlight color */
+      color: white;
+    }
+    
+    .nav-item i {
+      width: 24px;
+      margin-right: 12px;
+      text-align: center;
+    }
+    
+    /* Main Content Area */
+    .main-content {
+      flex: 1;
+      margin-left: 260px;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* Top Bar Styles */
+    .top-bar {
+      background: var(--topbar-bg);
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    .top-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .mobile-toggle-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      color: var(--sidebar-bg);
+      cursor: pointer;
+      padding: 6px 10px;
+      border-radius: 4px;
+    }
+
+    .mobile-toggle-btn:hover {
+      background: #f0f2f5;
+    }
+
+    .mobile-brand-title {
+      display: none;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 1.15rem;
+      color: var(--sidebar-bg);
+    }
+
+    .top-bar-links {
+      display: flex;
+      align-items: center;
+    }
+    
+    .top-bar-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #f8f9fa;
+      margin-left: 12px;
+      color: var(--text-dark);
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    
+    .top-bar-links a:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+    }
+    
+    /* Content Area */
+    .content {
+      padding: 25px;
+      flex: 1;
+      max-width: 100%;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+
+    /* Mobile Backdrop */
+    .mobile-backdrop {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(2px);
+      z-index: 1500;
+      transition: opacity 0.3s ease;
+    }
+
+    .mobile-backdrop.active {
+      display: block;
+    }
+
+    .sidebar-close-btn {
+      display: none;
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 8px;
+      margin-left: auto;
+    }
+
+    /* Universal responsive table rules */
+    table {
+      max-width: 100%;
+    }
+    .table-container, .table-responsive, div:has(> table) {
+      max-width: 100%;
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Responsive Design for Mobile & Tablet */
+    @media (max-width: 992px) {
+      .sidebar {
+        left: -280px;
+        width: 280px;
+        transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 2000;
+        box-shadow: 4px 0 25px rgba(0,0,0,0.25);
+      }
+      
+      .sidebar.open {
+        left: 0;
+      }
+
+      .sidebar-close-btn {
+        display: block;
+      }
+
+      .mobile-toggle-btn {
+        display: inline-flex;
+      }
+
+      .mobile-brand-title {
+        display: inline-block;
+      }
+
+      .main-content {
+        margin-left: 0 !important;
+        width: 100% !important;
+        min-width: 0 !important;
+      }
+
+      .content {
+        padding: 16px 12px !important;
+      }
+
+      /* Modal responsiveness */
+      .modal-content, .modal-dialog {
+        width: 95% !important;
+        max-width: 95% !important;
+        margin: 20px auto !important;
+        max-height: 90vh !important;
+        overflow-y: auto !important;
+      }
+
+      /* Form & Action button responsiveness */
+      .header-section, .action-bar, .filter-container, .search-container, .search-filter-section {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 12px !important;
+      }
+
+      .search-group, .btn-group, .action-buttons {
+        flex-wrap: wrap !important;
+        width: 100% !important;
+      }
+
+      .search-group > *, .btn-group > * {
+        flex: 1 1 auto;
+      }
+
+      .form-group input, .form-group select, .form-control, .search-input, .search-select {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Mobile Backdrop Overlay -->
+  <div id="mobileBackdrop" class="mobile-backdrop"></div>
+
+  <!-- Sidebar Navigation -->
+  <div class="sidebar" id="appSidebar">
+    <div class="app-title">
+      <div style="display:flex; align-items:center;">
+        <i class="fas fa-warehouse"></i> <span>AIC Inventory App</span>
+      </div>
+      <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Close menu">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    
+    <nav class="nav">
+      <a href="<?= getScriptUrl() ?>?page=dashboard" class="nav-item <?= currentPage === 'dashboard' ? 'active' : '' ?>">
+        <i class="fas fa-tachometer-alt"></i> <span>Dashboard</span>
+      </a>
+
+      <a href="<?= getScriptUrl() ?>?page=inventory" class="nav-item <?= currentPage === 'inventory' ? 'active' : '' ?>">
+        <i class="fas fa-boxes"></i> <span>Inventory</span>
+      </a>
+
+      <a href="<?= getScriptUrl() ?>?page=suppliers" class="nav-item <?= currentPage === 'suppliers' ? 'active' : '' ?>">
+        <i class="fas fa-truck-loading"></i> <span>Suppliers</span>
+      </a>
+
+      <a href="<?= getScriptUrl() ?>?page=customers" class="nav-item <?= currentPage === 'customers' ? 'active' : '' ?>">
+        <i class="fas fa-user-friends"></i> <span>Customers</span>
+      </a>
+
+      <a href="<?= getScriptUrl() ?>?page=purchases" class="nav-item <?= currentPage === 'purchases' ? 'active' : '' ?>">
+        <i class="fas fa-file-invoice-dollar"></i> <span>Purchases</span>
+      </a>
+
+      <a href="<?= getScriptUrl() ?>?page=sales" class="nav-item <?= currentPage === 'sales' ? 'active' : '' ?>">
+        <i class="fas fa-chart-line"></i> <span>Sales</span>
+      </a>
+
+      <a href="<?= getScriptUrl() ?>?page=receipts" class="nav-item <?= currentPage === 'receipts' ? 'active' : '' ?>">
+        <i class="fas fa-receipt"></i> <span>Receipts</span>
+      </a>
+
+      <a href="<?= getScriptUrl() ?>?page=payments" class="nav-item <?= currentPage === 'payments' ? 'active' : '' ?>">
+        <i class="fas fa-credit-card"></i> <span>Payments</span>
+      </a>
+
+      <a href="<?= getScriptUrl() ?>?page=reports" class="nav-item <?= currentPage === 'reports' ? 'active' : '' ?>">
+        <i class="fas fa-chart-pie"></i> <span>Reports</span>
+      </a>
+
+      <a href="<?= getScriptUrl() ?>?page=users" class="nav-item <?= currentPage === 'users' ? 'active' : '' ?>">
+        <i class="fas fa-user-cog"></i> <span>Users</span>
+      </a>
+
+      <a href="<?= getScriptUrl() ?>?page=settings" class="nav-item <?= currentPage === 'settings' ? 'active' : '' ?>">
+        <i class="fas fa-cogs"></i> <span>Settings</span>
+      </a>
+
+      <a href="<?= getScriptUrl() ?>?page=logout" class="nav-item" id="logout-link">
+        <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+      </a>
+
+    </nav>
+  </div>
+  
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <div class="top-bar-left">
+        <button id="mobileMenuBtn" class="mobile-toggle-btn" aria-label="Open menu">
+          <i class="fas fa-bars"></i>
+        </button>
+        <span class="mobile-brand-title"><i class="fas fa-warehouse" style="color:var(--primary); margin-right:6px;"></i> AIC Inventory</span>
+      </div>
+      <div class="top-bar-links">
+        <a href="?page=settings" title="Settings"><i class="fas fa-cog"></i></a>
+        <a href="?page=users" title="Users"><i class="fas fa-user"></i></a>
+      </div>
+    </div>
+    
+    <!-- Dynamic Content Injection -->
+    <div class="content">
+      <?!= include(contentTemplate + '.html') ?>
+    </div>
+  </div>
+
+  <script>
+    // Mobile Drawer Interactions
+    (function() {
+      const sidebar = document.getElementById('appSidebar');
+      const mobileBtn = document.getElementById('mobileMenuBtn');
+      const closeBtn = document.getElementById('sidebarCloseBtn');
+      const backdrop = document.getElementById('mobileBackdrop');
+
+      function openSidebar() {
+        if (sidebar) sidebar.classList.add('open');
+        if (backdrop) backdrop.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeSidebar() {
+        if (sidebar) sidebar.classList.remove('open');
+        if (backdrop) backdrop.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      if (mobileBtn) mobileBtn.addEventListener('click', openSidebar);
+      if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
+      if (backdrop) backdrop.addEventListener('click', closeSidebar);
+
+      // Close when clicking nav items on mobile
+      const navLinks = document.querySelectorAll('.nav-item');
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          if (window.innerWidth <= 992) {
+            closeSidebar();
+          }
+        });
+      });
+    })();
+
+    // The active class is now applied directly by Apps Script templating based on 'currentPage' variable.
+    // This JavaScript block is no longer needed for active navigation highlighting.
+    // document.addEventListener('DOMContentLoaded', function() {
+    //   const navItems = document.querySelectorAll('.nav-item');
+    //   const urlParams = new URLSearchParams(window.location.search);
+    //   const currentPage = urlParams.get('page') || 'dashboard';
+      
+    //   navItems.forEach(item => {
+    //     const href = item.getAttribute('href');
+    //     if (href.includes(`page=${currentPage}`)) {
+    //       item.classList.add('active');
+    //     }
+    //   });
+    // });
+    
+    // Example: Add event listener for logout (replace with actual logout logic)
+    const logoutLink = document.getElementById('logout-link');
+    if (logoutLink) {
+        logoutLink.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default link behavior
+            // Use a custom modal or message box instead of alert()
+            const messageBox = document.createElement('div');
+            messageBox.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: white;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 10000;
+                font-family: 'Roboto', sans-serif;
+                color: #333;
+                text-align: center;
+            `;
+            messageBox.innerHTML = `
+                <p style="margin-bottom: 15px;">Logout functionality to be implemented!</p>
+                <button style="
+                    background-color: #008080;
+                    color: white;
+                    border: none;
+                    padding: 8px 15px;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    font-size: 14px;
+                " onclick="this.parentNode.remove()">OK</button>
+            `;
+            document.body.appendChild(messageBox);
+        });
+    }
+  </script>
+</body>
+</html>

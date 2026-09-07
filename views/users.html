@@ -1,0 +1,103 @@
+<style>
+  .users-container {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    font-family: 'Poppins', sans-serif;
+  }
+  .users-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #f1f3f5;
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+  }
+  .users-header h1 {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    font-weight: 600;
+  }
+  .table-custom {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+  }
+  .table-custom th {
+    background-color: #f8f9fa;
+    color: #2c3e50;
+    font-weight: 600;
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 2px solid #dee2e6;
+  }
+  .table-custom td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #e9ecef;
+    color: #495057;
+  }
+  .role-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 500;
+  }
+  .role-admin { background: #e8f5e9; color: #2e7d32; }
+  .role-manager { background: #e3f2fd; color: #1565c0; }
+  .role-staff { background: #f3e5f5; color: #7b1fa2; }
+</style>
+
+<div class="users-container">
+  <div class="users-header">
+    <div>
+      <h1><i class="fas fa-users-cog" style="color:#1abc9c; margin-right:10px;"></i> User Management & Permissions</h1>
+      <p style="color:#7f8c8d; margin-top:5px;">Manage administrator accounts, warehouse staff, and operational permissions.</p>
+    </div>
+    <div>
+      <button onclick="alert('User invitation modal feature');" style="background:#1abc9c; color:white; padding:10px 20px; border-radius:6px; border:none; font-weight:500; cursor:pointer;">
+        <i class="fas fa-user-plus"></i> Invite User
+      </button>
+    </div>
+  </div>
+
+  <table class="table-custom">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Assigned Branch</th>
+        <th>Status</th>
+        <th>Last Active</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Admin Lead</strong></td>
+        <td>admin@aicinventory.com</td>
+        <td><span class="role-badge role-admin">Administrator</span></td>
+        <td>HQ - Dallas Central</td>
+        <td><span style="color:#2ecc71; font-weight:600;"><i class="fas fa-circle" style="font-size:8px;"></i> Active</span></td>
+        <td>Just now</td>
+      </tr>
+      <tr>
+        <td><strong>Sarah Connor</strong></td>
+        <td>s.connor@aicinventory.com</td>
+        <td><span class="role-badge role-manager">Procurement Manager</span></td>
+        <td>Los Angeles Hub</td>
+        <td><span style="color:#2ecc71; font-weight:600;"><i class="fas fa-circle" style="font-size:8px;"></i> Active</span></td>
+        <td>15 mins ago</td>
+      </tr>
+      <tr>
+        <td><strong>David Miller</strong></td>
+        <td>d.miller@aicinventory.com</td>
+        <td><span class="role-badge role-staff">Warehouse Clerk</span></td>
+        <td>Chicago Facility</td>
+        <td><span style="color:#2ecc71; font-weight:600;"><i class="fas fa-circle" style="font-size:8px;"></i> Active</span></td>
+        <td>2 hours ago</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

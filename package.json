@@ -1,0 +1,19 @@
+{
+  "name": "aic-inventory-app",
+  "version": "1.0.0",
+  "description": "AIC Inventory Management ERP System - Local & Vercel Neon Ready",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["inventory", "erp", "vercel", "neon", "google-apps-script"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "pg": "^8.13.3"
+  }
+}

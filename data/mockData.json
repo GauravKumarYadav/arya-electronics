@@ -1,0 +1,286 @@
+{
+  "dimensions": {
+    "states": [
+      "California",
+      "Texas",
+      "New York",
+      "Illinois",
+      "Florida"
+    ],
+    "cities": [
+      "Los Angeles",
+      "Dallas",
+      "New York City",
+      "Chicago",
+      "Miami"
+    ],
+    "types": [
+      "Hardware",
+      "Finished Goods",
+      "Raw Materials",
+      "Packaging",
+      "fan",
+      "mixer"
+    ],
+    "categories": [
+      "Electrical",
+      "Mechanical",
+      "Plumbing",
+      "Electronic"
+    ],
+    "subcategories": [
+      "Switches",
+      "Pipes",
+      "Fasteners",
+      "Wiring"
+    ],
+    "pmtStatuses": [
+      "Pending",
+      "Partially Paid",
+      "Paid",
+      "Overdue"
+    ],
+    "shippingStatuses": [
+      "Processing",
+      "Shipped",
+      "In Transit",
+      "Delivered",
+      "Cancelled"
+    ],
+    "pmtModes": [
+      "Bank Transfer",
+      "Credit Card",
+      "Cash",
+      "Cheque",
+      "ACH"
+    ]
+  },
+  "suppliers": [
+    {
+      "id": "SUP-0001",
+      "name": "Acme Industrial Supplies",
+      "contact": "+1 (555) 234-5678",
+      "email": "orders@acmeind.com",
+      "state": "California",
+      "city": "Los Angeles",
+      "address": "1200 Industrial Blvd, Suite 400",
+      "purchases": 5000,
+      "payments": 2500,
+      "balance": 2500
+    },
+    {
+      "id": "SUP-0002",
+      "name": "bina",
+      "contact": "9838543885",
+      "email": "shubham@gmail.com",
+      "state": "California",
+      "city": "Los Angeles",
+      "address": "d 37/64 a baradeo\ngodowlia\nnear himanshu electronics",
+      "purchases": 0,
+      "payments": 0,
+      "balance": 0
+    }
+  ],
+  "customers": [
+    {
+      "id": "CUST-0001",
+      "name": "Apex Builders Group",
+      "contact": "+1 (555) 345-6789",
+      "email": "procurement@apexbuilders.com",
+      "state": "California",
+      "city": "Los Angeles",
+      "address": "450 Metro Plaza, Tower B",
+      "sales": 6000,
+      "receipts": 5000,
+      "balance": 1000
+    }
+  ],
+  "inventory": [
+    {
+      "id": "ITEM-0001",
+      "name": "Pro Heavy Duty Toggle Switch 20A",
+      "type": "Hardware",
+      "category": "Electrical",
+      "subcategory": "Switches",
+      "cost": 10,
+      "price": 20,
+      "stock": 50,
+      "minStock": 20,
+      "reorderLevel": 20,
+      "reorder": "No"
+    },
+    {
+      "id": "ITEM-0002",
+      "name": "mixer grinder",
+      "type": "mixer",
+      "category": "Electronic",
+      "subcategory": "Wiring",
+      "cost": 0,
+      "price": 0,
+      "stock": 0,
+      "minStock": 0,
+      "reorderLevel": 0,
+      "reorder": "No"
+    },
+    {
+      "id": "ITEM-0003",
+      "name": "LED Spotlight 50W",
+      "type": "Hardware",
+      "category": "Electrical",
+      "subcategory": "Switches",
+      "cost": 0,
+      "price": 0,
+      "stock": 0,
+      "minStock": 15,
+      "reorderLevel": 15,
+      "reorder": "No"
+    }
+  ],
+  "purchaseOrders": [
+    {
+      "id": "PO1001",
+      "date": "2025-01-15",
+      "supplierId": "SUP-0001",
+      "supplierName": "Acme Industrial Supplies",
+      "billNum": "BILL-9821",
+      "state": "California",
+      "city": "Los Angeles",
+      "totalAmount": 5000,
+      "totalPaid": 2500,
+      "poBalance": 2500,
+      "pmtStatus": "Partially Paid",
+      "shippingStatus": "Delivered"
+    }
+  ],
+  "purchaseDetails": [
+    {
+      "date": "2025-01-15",
+      "poId": "PO1001",
+      "detailId": "PD1001",
+      "supplierId": "SUP-0001",
+      "supplierName": "Acme Industrial Supplies",
+      "state": "California",
+      "city": "Los Angeles",
+      "billNum": "BILL-9821",
+      "itemId": "ITEM-0001",
+      "itemType": "Hardware",
+      "itemCategory": "Electrical",
+      "itemSubcategory": "Switches",
+      "itemName": "Pro Heavy Duty Toggle Switch 20A",
+      "qtyPurchased": 200,
+      "unitCost": 25,
+      "costExclTax": 5000,
+      "taxRate": 0,
+      "totalTax": 0,
+      "costInclTax": 5000,
+      "shippingFees": 0,
+      "totalPrice": 5000
+    }
+  ],
+  "salesOrders": [
+    {
+      "soID": "SO2001",
+      "date": "2025-01-20",
+      "custID": "CUST-0001",
+      "custNm": "Apex Builders Group",
+      "inv": "INV-1001",
+      "state": "California",
+      "city": "Los Angeles",
+      "totalSales": 6000,
+      "totalReceipts": 5000,
+      "soBalance": 1000,
+      "pmtStatus": "Partially Paid",
+      "deliveryStatus": "Delivered"
+    },
+    {
+      "soID": "SO9223",
+      "date": "2026-09-01",
+      "custID": "CUST-0001",
+      "custNm": "Apex Builders Group",
+      "inv": "sdffy",
+      "state": "California",
+      "city": "Los Angeles",
+      "totalSales": 0,
+      "totalReceipts": 0,
+      "soBalance": 0,
+      "pmtStatus": "Pending",
+      "deliveryStatus": "Processing"
+    }
+  ],
+  "salesDetails": [
+    {
+      "SO Date": "2025-01-20",
+      "SO ID": "SO2001",
+      "Detail ID": "D2001",
+      "Customer ID": "CUST-0001",
+      "Customer Name": "Apex Builders Group",
+      "State": "California",
+      "City": "Los Angeles",
+      "Invoice Num": "INV-1001",
+      "Item ID": "ITEM-0001",
+      "Item Type": "Hardware",
+      "Item Category": "Electrical",
+      "Item Subcategory": "Switches",
+      "Item Name": "Pro Heavy Duty Toggle Switch 20A",
+      "QTY Sold": 150,
+      "Unit Price": 40,
+      "Price Excl Tax": 6000,
+      "Tax Rate": 0,
+      "Total Tax": 0,
+      "Price Incl Tax": 6000,
+      "Shipping Fees": 0,
+      "Total Sales Price": 6000
+    },
+    {
+      "SO Date": "2026-09-01",
+      "SO ID": "SO9223",
+      "Detail ID": "D7978",
+      "Customer ID": "CUST-0001",
+      "Customer Name": "Apex Builders Group",
+      "State": "California",
+      "City": "Los Angeles",
+      "Invoice Num": "sdffy",
+      "Item ID": "ITEM-0002",
+      "Item Type": "mixer",
+      "Item Category": "Electronic",
+      "Item Subcategory": "Wiring",
+      "Item Name": "mixer grinder",
+      "QTY Sold": 6,
+      "Unit Price": 0,
+      "Price Excl Tax": 0,
+      "Tax Rate": 0,
+      "Total Tax": 0,
+      "Price Incl Tax": 0,
+      "Shipping Fees": 0,
+      "Total Sales Price": 0
+    }
+  ],
+  "receipts": [
+    {
+      "Trx Date": "2026-09-07",
+      "Trx ID": "RT4551",
+      "Customer ID": "CUST-0001",
+      "Customer Name": "Apex Builders Group",
+      "State": "California",
+      "City": "Los Angeles",
+      "SO ID": "SO2001",
+      "Invoice Num": "INV-1001",
+      "PMT Mode": "Cash",
+      "Amount Received": 2000
+    }
+  ],
+  "payments": [
+    {
+      "Trx Date": "2025-01-22",
+      "Trx ID": "PT6001",
+      "Supplier ID": "SUP-0001",
+      "Supplier Name": "Acme Industrial Supplies",
+      "State": "California",
+      "City": "Los Angeles",
+      "PO ID": "PO1001",
+      "Bill Num": "BILL-9821",
+      "PMT Mode": "Bank Transfer",
+      "Amount Paid": 2500
+    }
+  ]
+}
