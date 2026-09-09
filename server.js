@@ -5,6 +5,7 @@ const path = require('path');
 const fs = require('fs');
 const { handleRpc } = require('./services/rpcController');
 const { initSchema } = require('./db/neonClient');
+const mockStore = require('./data/mockStore');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -124,8 +125,8 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Initialize database schema if Neon DB is configured
-initSchema().catch(console.error);
+// Initialize database schema and persistent store if Neon DB is configured
+initSchema().then(() => mockStore.initStore()).catch(console.error);
 
 // Export for Vercel serverless deployment
 module.exports = app;

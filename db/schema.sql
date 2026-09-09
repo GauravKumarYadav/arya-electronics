@@ -171,3 +171,10 @@ CREATE TABLE IF NOT EXISTS payments (
   amount_paid NUMERIC(15,2) DEFAULT 0,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- 11. Application Persistent State (JSON Store for Fast Multi-Module Sync)
+CREATE TABLE IF NOT EXISTS app_state (
+  key VARCHAR(50) PRIMARY KEY,
+  data JSONB NOT NULL,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

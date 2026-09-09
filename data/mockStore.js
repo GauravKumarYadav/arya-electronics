@@ -1,17 +1,18 @@
 const fs = require('fs');
 const path = require('path');
+const { getDbPool, loadStoreFromDb, saveStoreToDb } = require('../db/neonClient');
 
 const DATA_FILE = path.join(__dirname, 'mockData.json');
 
 // In-memory clone
 let store = null;
 
-function loadStore() {
+function loadStoreSync() {
   try {
     const raw = fs.readFileSync(DATA_FILE, 'utf-8');
     store = JSON.parse(raw);
   } catch (err) {
-    console.error('Error loading mockData.json, resetting to defaults:', err);
+    console.error('Error reading local mockData.json, setting default structure:', err);
     store = {
       dimensions: { states: [], cities: [], types: [], categories: [], subcategories: [], pmtStatuses: [], shippingStatuses: [], pmtModes: [] },
       suppliers: [],
@@ -27,21 +28,57 @@ function loadStore() {
   }
 }
 
+// Async initializer for database persistence
+async function initStore() {
+  const pool = getDbPool();
+  if (pool) {
+    try {
+      const dbData = await loadStoreFromDb();
+      if (dbData) {
+        store = dbData;
+        console.log('[Neon DB] App initialized with persistent state from database.');
+        return store;
+      }
+
+      // If DB is empty, seed from local mockData.json
+      loadStoreSync();
+      console.log('[Neon DB] Database is empty. Seeding initial dataset into Neon PostgreSQL...');
+      await saveStoreToDb(store);
+      return store;
+    } catch (err) {
+      console.error('[Neon DB] Initialization error, falling back to local file:', err);
+    }
+  }
+
+  loadStoreSync();
+  return store;
+}
+
 function saveStore() {
+  // 1. Persist to Neon DB if connected
+  saveStoreToDb(store).catch(err => {
+    console.error('[Neon DB] Save error:', err.message);
+  });
+
+  // 2. Persist to local file if writable
   try {
     fs.writeFileSync(DATA_FILE, JSON.stringify(store, null, 2), 'utf-8');
   } catch (err) {
-    console.error('Error persisting mockData.json:', err);
+    // Read-only filesystem on Vercel is expected and safe
   }
 }
 
-// Initial load
-loadStore();
+// Initial synchronous load for immediate availability
+loadStoreSync();
 
 module.exports = {
-  getStore: () => store,
+  initStore,
+  getStore: () => {
+    if (!store) loadStoreSync();
+    return store;
+  },
   saveStore,
-  reload: loadStore,
+  reload: initStore,
 
   // Dimension helpers
   getStates: () => store.dimensions.states || [],

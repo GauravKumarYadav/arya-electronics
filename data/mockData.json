@@ -79,6 +79,30 @@
       "purchases": 0,
       "payments": 0,
       "balance": 0
+    },
+    {
+      "id": "SUP-0003",
+      "name": "Neon Verified Supplier",
+      "contact": "1234567890",
+      "email": "test@neon.tech",
+      "state": "California",
+      "city": "Los Angeles",
+      "address": "123 Cloud Way",
+      "purchases": 0,
+      "payments": 0,
+      "balance": 0
+    },
+    {
+      "id": "SUP-0004",
+      "name": "Neon Verified Supplier",
+      "contact": "1234567890",
+      "email": "test@neon.tech",
+      "state": "California",
+      "city": "Los Angeles",
+      "address": "123 Cloud Way",
+      "purchases": 0,
+      "payments": 0,
+      "balance": 0
     }
   ],
   "customers": [
