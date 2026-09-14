@@ -135,7 +135,7 @@ module.exports = app;
 if (require.main === module) {
   app.listen(PORT, () => {
     console.log(`====================================================`);
-    console.log(`🚀 AIC Inventory App running at http://localhost:${PORT}`);
+    console.log(`🚀 Arya Electronics ERP running at http://localhost:${PORT}`);
     console.log(`📊 Mode: ${process.env.DATABASE_URL ? 'Neon PostgreSQL' : 'Local Mock Data Store'}`);
     console.log(`🧭 Pages: Dashboard, Inventory, Suppliers, Customers,`);
     console.log(`          Purchases, Sales, Receipts, Payments, Reports`);

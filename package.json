@@ -1,7 +1,7 @@
 {
-  "name": "aic-inventory-app",
+  "name": "arya-electronics",
   "version": "1.0.0",
-  "description": "AIC Inventory Management ERP System - Local & Vercel Neon Ready",
+  "description": "Arya Electronics - Inventory Management ERP System",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

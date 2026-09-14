@@ -1,6 +1,6 @@
-# AIC Inventory Management ERP System
+# Arya Electronics - Inventory Management ERP System
 
-A full-stack, enterprise-grade Inventory & Business ERP application originally developed for Google Apps Script (GAS) and successfully adapted into a modern, standalone Node.js/Express web application ready for local execution and deployment on **Vercel** with **Neon PostgreSQL**.
+A full-stack, enterprise-grade Inventory & Business ERP application tailored for Arya Electronics, ready for deployment on **Vercel** with **Neon PostgreSQL**.
 
 ---
 

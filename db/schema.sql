@@ -1,4 +1,4 @@
--- Neon PostgreSQL Schema for AIC Inventory Management ERP System
+-- Neon PostgreSQL Schema for Arya Electronics Inventory Management ERP System
 
 -- 1. Dimensions
 CREATE TABLE IF NOT EXISTS dimensions (

@@ -116,5 +116,5 @@
     }
   };
 
-  console.log('[AIC App] Google Apps Script compatibility bridge loaded successfully.');
+  console.log('[Arya Electronics] Google Apps Script compatibility bridge loaded successfully.');
 })();
