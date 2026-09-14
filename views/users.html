@@ -1,103 +1,629 @@
 <style>
-  .users-container {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 30px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  .users-wrapper {
+    padding: 10px 5px;
     font-family: 'Poppins', sans-serif;
   }
+
+  .users-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    border: 1px solid #eef2f5;
+    overflow: hidden;
+  }
+
   .users-header {
+    background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%);
+    color: white;
+    padding: 24px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid #f1f3f5;
-    padding-bottom: 20px;
-    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 15px;
   }
+
   .users-header h1 {
-    font-size: 1.8rem;
-    color: #2c3e50;
+    font-size: 1.6rem;
     font-weight: 600;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
-  .table-custom {
+
+  .users-header p {
+    margin: 4px 0 0 0;
+    font-size: 0.88rem;
+    opacity: 0.9;
+  }
+
+  .users-toolbar {
+    padding: 20px 25px;
+    background: #ffffff;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    border-bottom: 1px solid #f1f5f9;
+  }
+
+  .search-box {
+    position: relative;
+    min-width: 280px;
+  }
+
+  .search-box input {
+    width: 100%;
+    padding: 9px 14px 9px 36px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    outline: none;
+    background: #f8fafc;
+  }
+
+  .search-box input:focus {
+    border-color: #1abc9c;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(26,188,156,0.15);
+  }
+
+  .search-box i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+  }
+
+  .btn-primary-add {
+    background: #1abc9c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s;
+  }
+
+  .btn-primary-add:hover {
+    background: #16a085;
+  }
+
+  .users-table-area {
+    padding: 15px 25px 30px 25px;
+    overflow-x: auto;
+  }
+
+  .table-users {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 15px;
+    font-size: 0.88rem;
   }
-  .table-custom th {
-    background-color: #f8f9fa;
-    color: #2c3e50;
+
+  .table-users th {
+    background: #f8fafc;
+    color: #334155;
     font-weight: 600;
     padding: 14px 16px;
     text-align: left;
-    border-bottom: 2px solid #dee2e6;
+    border-bottom: 2px solid #e2e8f0;
+    white-space: nowrap;
   }
-  .table-custom td {
+
+  .table-users td {
     padding: 14px 16px;
-    border-bottom: 1px solid #e9ecef;
-    color: #495057;
+    border-bottom: 1px solid #f1f5f9;
+    color: #475569;
+    vertical-align: middle;
+    white-space: nowrap;
   }
+
+  .table-users tr:hover td {
+    background: #f8fafc;
+  }
+
+  .user-avatar-badge {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #e0f2fe;
+    color: #0369a1;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.88rem;
+    margin-right: 12px;
+  }
+
   .role-badge {
-    display: inline-block;
     padding: 4px 12px;
     border-radius: 20px;
-    font-size: 0.82rem;
-    font-weight: 500;
+    font-size: 0.78rem;
+    font-weight: 600;
+    display: inline-block;
   }
-  .role-admin { background: #e8f5e9; color: #2e7d32; }
-  .role-manager { background: #e3f2fd; color: #1565c0; }
-  .role-staff { background: #f3e5f5; color: #7b1fa2; }
+
+  .role-admin { background: #fee2e2; color: #b91c1c; }
+  .role-manager { background: #e0f2fe; color: #0369a1; }
+  .role-clerk { background: #fef9c3; color: #a16207; }
+  .role-sales { background: #dcfce7; color: #15803d; }
+
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+  }
+
+  .status-pill.active {
+    background: #dcfce7;
+    color: #15803d;
+    border-color: #bbf7d0;
+  }
+
+  .status-pill.inactive {
+    background: #f1f5f9;
+    color: #64748b;
+    border-color: #cbd5e1;
+  }
+
+  .action-btn-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    margin-right: 6px;
+  }
+
+  .btn-edit { background: #e0f2fe; color: #0284c7; }
+  .btn-edit:hover { background: #0284c7; color: white; }
+  .btn-delete { background: #fee2e2; color: #dc2626; }
+  .btn-delete:hover { background: #dc2626; color: white; }
+
+  /* Modal Dialog */
+  .modal-backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.5);
+    backdrop-filter: blur(3px);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .modal-dialog {
+    background: white;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 520px;
+    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+    overflow: hidden;
+    animation: modalSlide 0.2s ease-out;
+  }
+
+  @keyframes modalSlide {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .modal-header {
+    background: #f8fafc;
+    padding: 18px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .modal-header h3 {
+    margin: 0;
+    font-size: 1.15rem;
+    color: #1e293b;
+  }
+
+  .modal-close {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #64748b;
+  }
+
+  .modal-body {
+    padding: 24px;
+  }
+
+  .modal-group {
+    margin-bottom: 16px;
+  }
+
+  .modal-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 6px;
+  }
+
+  .modal-group input, .modal-group select {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    box-sizing: border-box;
+  }
+
+  .modal-footer {
+    background: #f8fafc;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  .btn-modal-cancel {
+    padding: 9px 18px;
+    border: 1px solid #cbd5e1;
+    background: white;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    cursor: pointer;
+    font-weight: 500;
+    color: #475569;
+  }
+
+  .btn-modal-save {
+    padding: 9px 22px;
+    border: none;
+    background: #1abc9c;
+    color: white;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .btn-modal-save:hover { background: #16a085; }
+
+  /* Toast notification */
+  .toast-notification {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #1e293b;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+    display: none;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.88rem;
+    z-index: 10000;
+  }
 </style>
 
-<div class="users-container">
-  <div class="users-header">
-    <div>
-      <h1><i class="fas fa-users-cog" style="color:#1abc9c; margin-right:10px;"></i> User Management & Permissions</h1>
-      <p style="color:#7f8c8d; margin-top:5px;">Manage administrator accounts, warehouse staff, and operational permissions.</p>
+<div class="users-wrapper">
+  <div class="users-card">
+    <div class="users-header">
+      <div>
+        <h1><i class="fas fa-users-cog"></i> Arya Electronics - User Management</h1>
+        <p>Manage staff accounts, assign regional facilities, and manage access roles.</p>
+      </div>
+      <div>
+        <button class="btn-primary-add" onclick="openAddUserModal()">
+          <i class="fas fa-user-plus"></i> Add New User
+        </button>
+      </div>
     </div>
-    <div>
-      <button onclick="alert('User invitation modal feature');" style="background:#1abc9c; color:white; padding:10px 20px; border-radius:6px; border:none; font-weight:500; cursor:pointer;">
-        <i class="fas fa-user-plus"></i> Invite User
-      </button>
+
+    <div class="users-toolbar">
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="userSearchInput" placeholder="Search staff by name, email, role..." onkeyup="filterUsersTable()">
+      </div>
+      <div style="font-size:0.88rem; color:#64748b;">
+        <i class="fas fa-shield-alt" style="color:#1abc9c; margin-right:4px;"></i> Role-Based Access Control Enabled
+      </div>
+    </div>
+
+    <div class="users-table-area">
+      <table class="table-users" id="usersTable">
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Email & Phone</th>
+            <th>Role</th>
+            <th>Assigned Facility</th>
+            <th>Status</th>
+            <th>Last Active</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="usersTableBody">
+          <!-- Populated by JavaScript -->
+        </tbody>
+      </table>
     </div>
   </div>
-
-  <table class="table-custom">
-    <thead>
-      <tr>
-        <th>User</th>
-        <th>Email</th>
-        <th>Role</th>
-        <th>Assigned Branch</th>
-        <th>Status</th>
-        <th>Last Active</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>Admin Lead</strong></td>
-        <td>admin@arya-electronics.com</td>
-        <td><span class="role-badge role-admin">Administrator</span></td>
-        <td>HQ - Mumbai Central</td>
-        <td><span style="color:#2ecc71; font-weight:600;"><i class="fas fa-circle" style="font-size:8px;"></i> Active</span></td>
-        <td>Just now</td>
-      </tr>
-      <tr>
-        <td><strong>Rajesh Sharma</strong></td>
-        <td>r.sharma@arya-electronics.com</td>
-        <td><span class="role-badge role-manager">Procurement Manager</span></td>
-        <td>Delhi NCR Hub</td>
-        <td><span style="color:#2ecc71; font-weight:600;"><i class="fas fa-circle" style="font-size:8px;"></i> Active</span></td>
-        <td>15 mins ago</td>
-      </tr>
-      <tr>
-        <td><strong>Amit Patel</strong></td>
-        <td>a.patel@arya-electronics.com</td>
-        <td><span class="role-badge role-staff">Warehouse Clerk</span></td>
-        <td>Bengaluru Facility</td>
-        <td><span style="color:#2ecc71; font-weight:600;"><i class="fas fa-circle" style="font-size:8px;"></i> Active</span></td>
-        <td>2 hours ago</td>
-      </tr>
-    </tbody>
-  </table>
 </div>
+
+<!-- Modal Dialog -->
+<div class="modal-backdrop" id="userModal">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <h3 id="modalTitle">Add New User</h3>
+      <button class="modal-close" onclick="closeUserModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="userIdInput">
+      <div class="modal-group">
+        <label>Full Name *</label>
+        <input type="text" id="userNameInput" placeholder="e.g. Vikram Verma" required>
+      </div>
+      <div class="modal-group">
+        <label>Email Address *</label>
+        <input type="email" id="userEmailInput" placeholder="v.verma@arya-electronics.com" required>
+      </div>
+      <div class="modal-group">
+        <label>Phone Number</label>
+        <input type="text" id="userPhoneInput" placeholder="+91 98200 12345">
+      </div>
+      <div class="modal-group">
+        <label>Role *</label>
+        <select id="userRoleInput">
+          <option value="Administrator">Administrator (Full Access)</option>
+          <option value="Procurement Manager">Procurement Manager (Purchases & Vendors)</option>
+          <option value="Sales Executive">Sales Executive (Billing & Invoicing)</option>
+          <option value="Inventory Manager">Inventory Manager (Stock & Catalog)</option>
+          <option value="Warehouse Clerk">Warehouse Clerk (Operations & Dispatch)</option>
+        </select>
+      </div>
+      <div class="modal-group">
+        <label>Assigned Branch / Location *</label>
+        <select id="userBranchInput">
+          <option value="HQ - Mumbai Central">HQ - Mumbai Central</option>
+          <option value="Delhi NCR Hub">Delhi NCR Hub</option>
+          <option value="Bengaluru Facility">Bengaluru Facility</option>
+          <option value="Chennai Hub">Chennai Hub</option>
+          <option value="Kolkata Facility">Kolkata Facility</option>
+          <option value="Ahmedabad Branch">Ahmedabad Branch</option>
+          <option value="Hyderabad Branch">Hyderabad Branch</option>
+        </select>
+      </div>
+      <div class="modal-group">
+        <label>Status</label>
+        <select id="userStatusInput">
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-modal-cancel" onclick="closeUserModal()">Cancel</button>
+      <button class="btn-modal-save" onclick="saveUserFromModal()">Save User</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast-notification" id="userToast">
+  <i class="fas fa-check-circle" style="color:#2ecc71;"></i>
+  <span id="userToastMsg">Notification</span>
+</div>
+
+<script>
+  let currentUsersList = [];
+
+  function showToast(msg) {
+    const toast = document.getElementById('userToast');
+    document.getElementById('userToastMsg').textContent = msg;
+    toast.style.display = 'flex';
+    setTimeout(() => { toast.style.display = 'none'; }, 3000);
+  }
+
+  function loadUsers() {
+    google.script.run
+      .withSuccessHandler(function(users) {
+        currentUsersList = users || [];
+        renderUsersTable(currentUsersList);
+      })
+      .withFailureHandler(function(err) {
+        console.error('Error fetching users:', err);
+      })
+      .usrGetUsers();
+  }
+
+  function getRoleBadgeClass(role) {
+    if (!role) return 'role-clerk';
+    if (role.includes('Admin')) return 'role-admin';
+    if (role.includes('Manager')) return 'role-manager';
+    if (role.includes('Sales')) return 'role-sales';
+    return 'role-clerk';
+  }
+
+  function renderUsersTable(users) {
+    const tbody = document.getElementById('usersTableBody');
+    tbody.innerHTML = '';
+
+    if (!users || users.length === 0) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="7" style="text-align:center; padding:40px; color:#64748b;">
+            <i class="fas fa-user-slash" style="font-size:2rem; margin-bottom:10px; display:block; color:#cbd5e1;"></i>
+            No users found. Click "Add New User" to register a staff account.
+          </td>
+        </tr>
+      `;
+      return;
+    }
+
+    users.forEach(u => {
+      const initials = (u.name || 'U').split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
+      const tr = document.createElement('tr');
+      const isActive = u.status === 'Active';
+
+      tr.innerHTML = `
+        <td>
+          <div style="display:flex; align-items:center;">
+            <div class="user-avatar-badge">${initials}</div>
+            <div>
+              <strong>${u.name || 'Unnamed'}</strong>
+              <div style="font-size:0.75rem; color:#94a3b8;">${u.id}</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div>${u.email || '-'}</div>
+          <div style="font-size:0.78rem; color:#94a3b8;">${u.phone || ''}</div>
+        </td>
+        <td>
+          <span class="role-badge ${getRoleBadgeClass(u.role)}">${u.role || 'Staff'}</span>
+        </td>
+        <td>${u.branch || 'HQ - Mumbai Central'}</td>
+        <td>
+          <span class="status-pill ${isActive ? 'active' : 'inactive'}" onclick="toggleUserStatus('${u.id}')" title="Click to toggle status">
+            <i class="fas fa-circle" style="font-size:7px;"></i> ${u.status || 'Active'}
+          </span>
+        </td>
+        <td style="color:#64748b; font-size:0.82rem;">${u.lastActive || 'Recently'}</td>
+        <td>
+          <button class="action-btn-circle btn-edit" onclick="openEditUserModal('${u.id}')" title="Edit User">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button class="action-btn-circle btn-delete" onclick="deleteUserRecord('${u.id}')" title="Delete User">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function filterUsersTable() {
+    const q = document.getElementById('userSearchInput').value.toLowerCase();
+    const filtered = currentUsersList.filter(u => 
+      (u.name && u.name.toLowerCase().includes(q)) ||
+      (u.email && u.email.toLowerCase().includes(q)) ||
+      (u.role && u.role.toLowerCase().includes(q)) ||
+      (u.branch && u.branch.toLowerCase().includes(q))
+    );
+    renderUsersTable(filtered);
+  }
+
+  function openAddUserModal() {
+    document.getElementById('modalTitle').textContent = 'Add New Staff Account';
+    document.getElementById('userIdInput').value = '';
+    document.getElementById('userNameInput').value = '';
+    document.getElementById('userEmailInput').value = '';
+    document.getElementById('userPhoneInput').value = '';
+    document.getElementById('userRoleInput').value = 'Warehouse Clerk';
+    document.getElementById('userBranchInput').value = 'HQ - Mumbai Central';
+    document.getElementById('userStatusInput').value = 'Active';
+    document.getElementById('userModal').style.display = 'flex';
+  }
+
+  function openEditUserModal(userId) {
+    const u = currentUsersList.find(x => x.id === userId);
+    if (!u) return;
+    document.getElementById('modalTitle').textContent = 'Edit Staff Member';
+    document.getElementById('userIdInput').value = u.id;
+    document.getElementById('userNameInput').value = u.name || '';
+    document.getElementById('userEmailInput').value = u.email || '';
+    document.getElementById('userPhoneInput').value = u.phone || '';
+    document.getElementById('userRoleInput').value = u.role || 'Warehouse Clerk';
+    document.getElementById('userBranchInput').value = u.branch || 'HQ - Mumbai Central';
+    document.getElementById('userStatusInput').value = u.status || 'Active';
+    document.getElementById('userModal').style.display = 'flex';
+  }
+
+  function closeUserModal() {
+    document.getElementById('userModal').style.display = 'none';
+  }
+
+  function saveUserFromModal() {
+    const name = document.getElementById('userNameInput').value.trim();
+    const email = document.getElementById('userEmailInput').value.trim();
+    if (!name || !email) {
+      alert('Please provide Name and Email.');
+      return;
+    }
+
+    const userData = {
+      id: document.getElementById('userIdInput').value,
+      name: name,
+      email: email,
+      phone: document.getElementById('userPhoneInput').value.trim(),
+      role: document.getElementById('userRoleInput').value,
+      branch: document.getElementById('userBranchInput').value,
+      status: document.getElementById('userStatusInput').value
+    };
+
+    google.script.run
+      .withSuccessHandler(function(res) {
+        closeUserModal();
+        showToast('User record saved successfully.');
+        loadUsers();
+      })
+      .withFailureHandler(function(err) {
+        alert('Error saving user: ' + (err.message || err));
+      })
+      .usrSaveUser(userData);
+  }
+
+  function deleteUserRecord(userId) {
+    if (!confirm('Are you sure you want to remove this staff user?')) return;
+    google.script.run
+      .withSuccessHandler(function(res) {
+        showToast('User deleted successfully.');
+        loadUsers();
+      })
+      .withFailureHandler(function(err) {
+        alert('Error deleting user: ' + (err.message || err));
+      })
+      .usrDeleteUser(userId);
+  }
+
+  function toggleUserStatus(userId) {
+    google.script.run
+      .withSuccessHandler(function(res) {
+        showToast('User status updated.');
+        loadUsers();
+      })
+      .usrToggleStatus(userId);
+  }
+
+  // Load on start
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadUsers);
+  } else {
+    loadUsers();
+  }
+</script>

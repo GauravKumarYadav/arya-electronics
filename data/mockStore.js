@@ -36,6 +36,36 @@ async function initStore() {
       const dbData = await loadStoreFromDb();
       if (dbData) {
         store = dbData;
+        if (!store.users || !Array.isArray(store.users)) {
+          store.users = [
+            {
+              id: 'USR-101',
+              name: 'Admin Lead',
+              email: 'admin@arya-electronics.com',
+              phone: '+91 98200 12345',
+              role: 'Administrator',
+              branch: 'HQ - Mumbai Central',
+              status: 'Active',
+              lastActive: 'Just now'
+            }
+          ];
+        }
+        if (!store.settings) {
+          store.settings = {
+            companyName: 'Arya Electronics',
+            gstin: '27AAAAA0000A1Z5',
+            email: 'contact@arya-electronics.com',
+            phone: '+91 98200 12345',
+            address: 'Plot 42, Electronic City, Phase 1, Bengaluru, Karnataka - 560100',
+            currency: 'INR (₹)',
+            currencySymbol: '₹',
+            defaultGSTRate: 18,
+            lowStockThreshold: 5,
+            invoicePrefix: 'AE-INV-',
+            poPrefix: 'AE-PO-',
+            fyStartMonth: 'April'
+          };
+        }
         console.log('[Neon DB] App initialized with persistent state from database.');
         return store;
       }

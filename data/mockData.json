@@ -1,20 +1,17 @@
 {
+  "payments": [],
+  "receipts": [],
+  "customers": [],
+  "inventory": [],
+  "suppliers": [],
   "dimensions": {
-    "states": [
-      "Uttar Pradesh",
-      "Maharashtra",
-      "Delhi",
-      "Gujarat",
-      "Karnataka",
-      "Tamil Nadu",
-      "Rajasthan",
-      "West Bengal",
-      "Telangana",
-      "Madhya Pradesh",
-      "Haryana",
-      "Punjab",
-      "Kerala",
-      "Bihar"
+    "types": [
+      "Consumer Electronics",
+      "Home Appliances",
+      "Mobile & IT Accessories",
+      "Lighting & Electricals",
+      "Audio & Video",
+      "Cables & Wiring"
     ],
     "cities": [
       "Varanasi",
@@ -32,13 +29,29 @@
       "Surat",
       "Kanpur"
     ],
-    "types": [
-      "Consumer Electronics",
-      "Home Appliances",
-      "Mobile & IT Accessories",
-      "Lighting & Electricals",
-      "Audio & Video",
-      "Cables & Wiring"
+    "states": [
+      "Uttar Pradesh",
+      "Maharashtra",
+      "Delhi",
+      "Gujarat",
+      "Karnataka",
+      "Tamil Nadu",
+      "Rajasthan",
+      "West Bengal",
+      "Telangana",
+      "Madhya Pradesh",
+      "Haryana",
+      "Punjab",
+      "Kerala",
+      "Bihar"
+    ],
+    "pmtModes": [
+      "UPI / QR Code",
+      "NEFT / RTGS",
+      "Net Banking",
+      "Cash",
+      "Cheque",
+      "Credit / Debit Card"
     ],
     "categories": [
       "Kitchen Appliances",
@@ -47,6 +60,12 @@
       "Mobile Accessories",
       "Power & Wiring",
       "Electrical Components"
+    ],
+    "pmtStatuses": [
+      "Pending",
+      "Partially Paid",
+      "Paid",
+      "Overdue"
     ],
     "subcategories": [
       "Mixer Grinder",
@@ -60,35 +79,42 @@
       "Voltage Stabilizer",
       "Room Heater"
     ],
-    "pmtStatuses": [
-      "Pending",
-      "Partially Paid",
-      "Paid",
-      "Overdue"
-    ],
     "shippingStatuses": [
       "Processing",
       "Dispatched",
       "In Transit",
       "Delivered",
       "Cancelled"
-    ],
-    "pmtModes": [
-      "UPI / QR Code",
-      "NEFT / RTGS",
-      "Net Banking",
-      "Cash",
-      "Cheque",
-      "Credit / Debit Card"
     ]
   },
-  "suppliers": [],
-  "customers": [],
-  "inventory": [],
-  "purchaseOrders": [],
-  "purchaseDetails": [],
   "salesOrders": [],
   "salesDetails": [],
-  "receipts": [],
-  "payments": []
+  "purchaseOrders": [],
+  "purchaseDetails": [],
+  "users": [
+    {
+      "id": "USR-101",
+      "name": "Admin Lead",
+      "email": "admin@arya-electronics.com",
+      "phone": "+91 98200 12345",
+      "role": "Administrator",
+      "branch": "HQ - Mumbai Central",
+      "status": "Active",
+      "lastActive": "Just now"
+    }
+  ],
+  "settings": {
+    "companyName": "Arya Electronics",
+    "gstin": "27AAAAA0000A1Z5",
+    "email": "contact@arya-electronics.com",
+    "phone": "+91 98200 12345",
+    "address": "Plot 42, Electronic City, Phase 1, Bengaluru, Karnataka - 560100",
+    "currency": "INR (₹)",
+    "currencySymbol": "₹",
+    "defaultGSTRate": 18,
+    "lowStockThreshold": 5,
+    "invoicePrefix": "AE-INV-",
+    "poPrefix": "AE-PO-",
+    "fyStartMonth": "April"
+  }
 }

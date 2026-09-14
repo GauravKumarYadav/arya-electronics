@@ -28,7 +28,9 @@ const pageTemplates = {
   'sales': 'sales',
   'receipts': 'receipts',
   'payments': 'payments',
-  'reports': 'reports'
+  'reports': 'reports',
+  'users': 'users',
+  'settings': 'settings'
 };
 
 // Render layout + dynamic page
